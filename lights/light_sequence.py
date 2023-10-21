@@ -1,4 +1,4 @@
-from appdaemon.plugins.hass.hassapi import Hass
+import appdaemon.plugins.hass.hassapi as hass
 
 
 LIGHT_SEQUENCE = 'LIGHT_SEQUENCE'
@@ -7,6 +7,7 @@ LIGHT_SEQUENCE = 'LIGHT_SEQUENCE'
 class LightSequence(hass.Hass):
     sequence_handle = None  # Add this line
 
+    # register callbacks
     def initialize(self):
         self.listen_event(self.lights_cb, LIGHT_SEQUENCE)
 
