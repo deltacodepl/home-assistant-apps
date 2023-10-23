@@ -9,7 +9,9 @@ class LightSequence(hass.Hass):
 
     # register callbacks
     def initialize(self):
+        self.log("Lights started")
         self.listen_event(self.lights_cb, LIGHT_SEQUENCE)
+
 
     def lights_cb(self, event, data, kwargs):
         """
@@ -18,8 +20,8 @@ class LightSequence(hass.Hass):
         new sequence
         """
         if self.sequence_handle is None:
-            self.sequence_handle = self.run_sequence('sequence.light_sequence')
+            self.sequence_handle = self.run_sequence('sequence.office_on')
         else:
             self.cancel_timer(self.sequence_handle)
-            self.sequence_handle = self.run_sequence('sequence.light_sequence')
+            self.sequence_handle = self.run_sequence('sequence.office_on')
        
