@@ -9,7 +9,7 @@ class LightSequence(hass.Hass):
     # register callbacks
     def initialize(self):
         self.log("Lights started")
-        self.sequence_handle = None  # Add this line
+        self.sequence_handle = None
         self.listen_event(self.lights_cb, LIGHT_SEQUENCE)
 
 

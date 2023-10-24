@@ -16,8 +16,8 @@ MODE_AUTO = "auto"
 MODE_ECO = "eco"
 MODE_VACATION = "vacation"
 
-HYSTERESIS = 1.0  # Difference between the temperature to turn heating on and off (to avoid frequent switching)
-MIN_TEMPERATURE = 10  # Always turn on if teperature is below
+HYSTERESIS = 0.7  # Difference between the temperature to turn heating on and off (to avoid frequent switching)
+MIN_TEMPERATURE = 10  # Always turn on if temperature is below
 LOG_LEVEL = "INFO"
 
 # Other constants - do not change
@@ -65,9 +65,7 @@ class HeatingControl(hass.Hass):
                 vol.Required(ATTR_ROOMS): vol.All(vol_help.ensure_list, [ROOM_SCHEMA]),
                 vol.Required(ATTR_SWITCH_HEATING): vol_help.existing_entity_id(self),
                 vol.Required(ATTR_SOMEBODY_HOME): vol_help.existing_entity_id(self),
-                vol.Required(ATTR_TEMPERATURE_VACATION): vol_help.existing_entity_id(
-                    self
-                ),
+                vol.Required(ATTR_TEMPERATURE_VACATION): vol_help.existing_entity_id(self),
                 vol.Required(ATTR_HEATING_MODE): vol_help.existing_entity_id(self),
             },
             extra=vol.ALLOW_EXTRA,
@@ -96,7 +94,7 @@ class HeatingControl(hass.Hass):
         self.listen_state(self.mode_changed, self.__heating_mode)
         sensors = []
         thermostats = []
-        # Listen to events for temperatuyre sensors and thermostats
+        # Listen to events for temperature sensors and thermostats
         for room in self.__rooms:
             self.listen_state(self.daynight_changed, room[ATTR_DAYNIGHT])
             self.listen_state(self.target_changed, room[ATTR_TEMPERATURE_DAY])
