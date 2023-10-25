@@ -1,0 +1,12 @@
+[pylint]
+disable =
+    bad-continuation,
+    duplicate-code,
+    import-outside-toplevel,
+    too-few-public-methods,
+    wrong-import-position
+max-args = 8
+max-attributes = 10
+max-branches = 20
+max-locals = 20
+max-statements = 100

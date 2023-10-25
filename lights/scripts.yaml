@@ -1,0 +1,4 @@
+light_sequence:
+  alias: Light sequence
+  sequence:
+    - event: LIGHT_SEQUENCE
