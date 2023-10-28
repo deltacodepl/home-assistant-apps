@@ -12,11 +12,15 @@ schedy_heating:  # This is our app instance name.
       rescheduling_delay: 45
       actors:
         climate.termet:
-      schedule:  
-      - x: "state('input_number.livingroom_night')" 
+      schedule:
+      - x: "state('input_number.livingroom_day')"
         rules:
         - weekdays: 1-7
           rules:
-          - { start: "20:00", end: "22:30", x: "Add(-0.3) if is_on('switch.termet_relay') else Next()" } 
-          - { start: "22:30", end: "06:00" }
-      - x: "state('input_number.livingroom_day')"
+          - { start: "05:00", end: "09:00", x: "Add(-0.2) if is_on('switch.termet_relay') else Next()" } # at morning heat up to 1 degree hystersis         
+          - { start: "20:00", end: "21:30", x: "Add(-0.3) if is_on('switch.termet_relay') else Next()" } # do not overheat for night
+      - x: "state('input_number.livingroom_night')" 
+        rules:
+        - weekdays: 1-7
+          rules:                                                                                                                                             
+          - { start: "21:30", end: "06:30" }
